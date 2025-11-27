@@ -54,6 +54,35 @@
 }
 
 /* ACTIF + HOVER — sans aucun glitch */
+
+/* ------------------------------------------------------- */
+/* RESPONSIVE — Bulle scrollable (3 items visibles max)   */
+/* ------------------------------------------------------- */
+@media (max-width: 720px) {
+    .ea-menu-list {
+        gap: 1rem;
+        padding: .6rem 1rem;
+        border-radius: 1.5rem;
+        overflow-x: auto;
+        max-width: 70vw;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+    }
+    .ea-menu-list::-webkit-scrollbar { display: none; }
+
+    /* Taille du texte réduite mais premium */
+    .ea-menu-link {
+        font-size: .85rem;
+        white-space: nowrap;
+    }
+
+    /* Compression de la bulle */
+    .ea-menu {
+        justify-content: flex-start;
+        padding-left: calc(2rem + 60px); /* compense logo */
+    }
+}
+
 .ea-menu-link:hover,
 .ea-menu-link.active {
     opacity:1;
