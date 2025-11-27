@@ -1,0 +1,16 @@
+{
+  "home":    { "title": "Accueil",      "sections": ["hero", "intro"] },
+  "about":   { "title": "À propos",     "sections": ["bio", "skills", "vision"] },
+  "expertises": {
+    "title": "Expertises",
+    "sections": ["direction-artistique", "systems-engineering", "web-premium", "conseils"]
+  },
+  "launch-lab": {
+    "title": "Launch Lab",
+    "sections": ["program", "pricing", "roadmap", "faq"]
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "sections": ["project-001", "project-002", "project-003"]
+  }
+}

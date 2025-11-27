@@ -1,0 +1,37 @@
+:root {
+    /* COLORS */
+    --ea-bg: #000;
+    --ea-fg: #fff;
+    --ea-fg-soft: rgba(255,255,255,.75);
+    --ea-fg-dim: rgba(255,255,255,.45);
+
+    --ea-accent-1: #9df;
+    --ea-accent-2: #4af;
+    --ea-accent-3: #0ef;
+
+    /* TYPOGRAPHY */
+    --ea-font-main: 'Inter', sans-serif;
+    --ea-font-size-sm: .9rem;
+    --ea-font-size-md: 1rem;
+    --ea-font-size-lg: 1.6rem;
+    --ea-font-size-xl: 2.4rem;
+    --ea-font-size-xxl: 4rem;
+
+    /* LAYOUT */
+    --ea-max-width: 1200px;
+    --ea-pad: 2rem;
+    --ea-section-vspace: 6rem;
+
+    /* RADIUS */
+    --ea-radius-sm: 6px;
+    --ea-radius-md: 12px;
+    --ea-radius-lg: 24px;
+
+    /* SHADOWS */
+    --ea-shadow-soft: 0 0 20px rgba(255,255,255,.08);
+
+    /* ANIMATIONS */
+    --ea-dur-fast: .25s;
+    --ea-dur-normal: .45s;
+    --ea-dur-slow: .75s;
+}

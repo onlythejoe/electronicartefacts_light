@@ -1,0 +1,18 @@
+.ea-accordion { width:100%; }
+.ea-acc-item {
+    border-bottom:1px solid rgba(255,255,255,.12);
+    padding:1rem 0;
+}
+.ea-acc-title {
+    cursor:pointer;
+    font-weight:600;
+    opacity:.8;
+}
+.ea-acc-content {
+    max-height:0;
+    overflow:hidden;
+    transition:max-height var(--ea-dur-normal) ease;
+}
+.ea-acc-item.open .ea-acc-content {
+    max-height:400px;
+}

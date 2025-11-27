@@ -1,0 +1,38 @@
+/* --- SCROLL CONTAINER --- */
+#ea-page-content {
+    height:100vh;
+    overflow-y:auto;
+    scroll-snap-type:y mandatory;
+    scroll-behavior:smooth;
+}
+
+/* --- SECTION MAGNETIQUE --- */
+.ea-section {
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:4rem 1.5rem;
+    scroll-snap-align:center;
+    scroll-snap-stop:always;
+}
+
+/* --- PORTE EA (fenêtre verticale centrée) --- */
+.ea-view {
+    height:80vh;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+/* Container interne */
+.ea-section > .ea-container {
+    width:min(1200px, 90%);
+    height:80vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}

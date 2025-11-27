@@ -1,0 +1,7 @@
+.ea-fade-in {
+    animation:eaFadeIn var(--ea-dur-normal) ease forwards;
+    opacity:0;
+}
+@keyframes eaFadeIn {
+    to { opacity:1; }
+}

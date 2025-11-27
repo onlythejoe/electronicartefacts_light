@@ -1,0 +1,10 @@
+.ea-timeline-vertical {
+    display:flex;
+    flex-direction:column;
+    gap:2rem;
+    border-left:1px solid rgba(255,255,255,.12);
+    padding-left:2rem;
+}
+.ea-phase-card {
+    padding:1rem 0;
+}

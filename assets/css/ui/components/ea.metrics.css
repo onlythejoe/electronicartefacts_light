@@ -1,0 +1,9 @@
+.ea-metric {
+    font-size:2rem;
+    font-weight:600;
+    color:var(--ea-accent-1);
+}
+.ea-bio-metrics {
+    display:flex;
+    gap:2rem;
+}

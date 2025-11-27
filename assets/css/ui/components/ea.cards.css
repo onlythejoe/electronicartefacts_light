@@ -1,0 +1,13 @@
+.ea-card {
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.06);
+    padding:2rem;
+    border-radius:var(--ea-radius-lg);
+    box-shadow:var(--ea-shadow-soft);
+}
+.ea-card-profile {
+    text-align:center;
+    padding:3rem;
+    border-radius:var(--ea-radius-lg);
+    background:rgba(255,255,255,.02);
+}

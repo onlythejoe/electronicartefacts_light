@@ -1,0 +1,14 @@
+.ea-container {
+    width:min(var(--ea-max), 90%);
+    margin-inline:auto;
+    padding:var(--ea-pad) 0;
+}
+
+.ea-section {
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:var(--ea-pad);
+}

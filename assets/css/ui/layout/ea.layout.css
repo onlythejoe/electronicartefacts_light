@@ -1,0 +1,37 @@
+/* EA — Unified Layout */
+
+.ea-container {
+    width:min(var(--ea-max-width), 90%);
+    margin:auto;
+    padding:var(--ea-pad) 0;
+}
+
+.ea-section {
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:var(--ea-section-vspace) var(--ea-pad);
+    scroll-snap-align:center;
+}
+
+.ea-view {
+    width:100%;
+    height:80vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.ea-stack {
+    display:flex;
+    flex-direction:column;
+    gap:clamp(.8rem, 1vw, 1.6rem);
+}
+
+.ea-dataviz-slot {
+    width:100%;
+    height:180px;
+    background:rgba(255,255,255,.03);
+    border-radius:var(--ea-radius-lg);
+}

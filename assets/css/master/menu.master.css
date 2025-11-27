@@ -1,0 +1,65 @@
+.ea-menu {
+    position:fixed;
+    top:1rem;
+    left:0;
+    right:0;
+    display:flex;
+    justify-content:center;
+    z-index:1000;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .45s cubic-bezier(.25,.46,.45,.94);
+}
+
+.ea-menu.visible {
+    opacity:1;
+    pointer-events:auto;
+}
+
+.ea-menu-left {
+    position:absolute;
+    left:2rem;
+    top:50%;
+    transform:translateY(-50%);
+}
+
+.ea-logo {
+    font-size:1.2rem;
+    font-weight:600;
+}
+
+/* BULLE */
+.ea-menu-list {
+    display:flex;
+    gap:1.5rem;
+    backdrop-filter:blur(12px);
+    padding:.8rem 1.4rem;
+    border-radius:2rem;
+    background:rgba(0,0,0,.3);
+    border:1px solid rgba(255,255,255,.12);
+}
+
+/* LIENS — version ultra smooth */
+.ea-menu-link {
+    opacity:.7;
+    font-weight:400;
+    font-size:1rem;
+    transform:scale(1);
+    transition:
+        opacity .25s ease,
+        transform .35s cubic-bezier(.25,.46,.45,.94),
+        text-shadow .35s ease,
+        filter .35s ease;
+    will-change: transform, filter, opacity;
+}
+
+/* ACTIF + HOVER — sans aucun glitch */
+.ea-menu-link:hover,
+.ea-menu-link.active {
+    opacity:1;
+    transform:scale(1.015); /* ultra léger + zéro tremblement */
+    text-shadow:
+        0 0 .35px rgba(255,255,255,.8),
+        0 0 .6px rgba(255,255,255,.25); /* simule un poids légèrement plus fort */
+    filter:brightness(1.05); /* micro highlight */
+}
