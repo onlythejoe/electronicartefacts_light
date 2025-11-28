@@ -1,3 +1,4 @@
+import { initProgressNav } from "./progress-nav.js";
 import { injectGlobalComponents } from "./composer-global.js";
 import { composePage } from "../composer/composer.js";
 import { activateMenu } from "./menu.js";
@@ -13,9 +14,12 @@ async function load() {
     await injectGlobalComponents();
     await composePage(page);
 
+    initProgressNav();
     activateMenu();
     initScrollEngine();
     applySeo(page);
+
+    window.dispatchEvent(new Event("ea-page-loaded"));
 }
 
 window.addEventListener("DOMContentLoaded", load);
