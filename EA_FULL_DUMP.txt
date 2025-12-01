@@ -1,0 +1,1217 @@
+
+============================================================
+📄 FICHIER : ./index.html
+------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronic Artefacts</title>
+</head>
+
+<body>
+    <div id="ea-root">
+
+        <!-- SLOTS GLOBAUX -->
+        <div id="ea-head-slot"></div>
+        <div id="ea-body-start-slot"></div>
+        <nav id="ea-menu-slot"></nav>
+
+        <!-- LAYOUT AVEC SIDEBAR -->
+        <div id="ea-layout">
+            <aside id="ea-progress-nav"></aside>
+            <main id="ea-page-content" class="ea-scroll"></main>
+        </div>
+
+        <footer id="ea-footer-slot"></footer>
+        <div id="ea-body-end-slot"></div>
+
+    </div>
+
+    <script type="module" src="assets/js/core/loader.js"></script>
+</body>
+</html>
+
+
+============================================================
+📄 FICHIER : ./config/pages.json
+------------------------------------------------------------
+{
+  "home":    { "title": "Accueil",      "sections": ["hero", "intro"] },
+  "about":   { "title": "À propos",     "sections": ["bio", "skills", "vision"] },
+  "expertises": {
+    "title": "Expertises",
+    "sections": ["direction-artistique", "systems-engineering", "web-premium", "conseils"]
+  },
+  "launch-lab": {
+    "title": "Launch Lab",
+    "sections": ["program", "pricing", "roadmap", "faq"]
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "sections": ["project-001", "project-002", "project-003"]
+  }
+}
+
+
+============================================================
+📄 FICHIER : ./components/body-end.html
+------------------------------------------------------------
+<!-- BODY END -->
+<div class="ea-body-end"></div>
+
+
+============================================================
+📄 FICHIER : ./components/menu.html
+------------------------------------------------------------
+<nav class="ea-menu">
+    <div class="ea-menu-left">
+        <a href="?page=home" class="ea-logo">EA</a>
+    </div>
+
+    <ul class="ea-menu-list">
+        <li><a class="ea-menu-link" data-page="home" href="?page=home">Accueil</a></li>
+        <li><a class="ea-menu-link" data-page="about" href="?page=about">À propos</a></li>
+        <li><a class="ea-menu-link" data-page="expertises" href="?page=expertises">Expertises</a></li>
+        <li><a class="ea-menu-link" data-page="portfolio" href="?page=portfolio">Portfolio</a></li>
+        <li><a class="ea-menu-link" data-page="launch-lab" href="?page=launch-lab">Launch Lab</a></li>
+    </ul>
+</nav>
+
+
+============================================================
+📄 FICHIER : ./components/body-start.html
+------------------------------------------------------------
+<!-- BODY START -->
+<div class="ea-body-start"></div>
+
+
+============================================================
+📄 FICHIER : ./components/head.html
+------------------------------------------------------------
+<!-- EA HEAD PARTIAL -->
+<link rel="icon" href="/favicon.ico">
+
+<!-- CORE RESET & TOKENS -->
+<link rel="stylesheet" href="assets/css/core/reset.css">
+<link rel="stylesheet" href="assets/css/tokens/ea.tokens.css">
+<link rel="stylesheet" href="assets/css/core/theme.css">
+<link rel="stylesheet" href="assets/css/core/layout.css">
+
+<!-- MASTER SYSTEM -->
+<link rel="stylesheet" href="assets/css/master/ea.master.css">
+<link rel="stylesheet" href="assets/css/master/menu.master.css">
+<link rel="stylesheet" href="assets/css/master/sections.master.css">
+
+<!-- UI COMPONENTS -->
+<link rel="stylesheet" href="assets/css/ui/layout/ea.layout.css">
+<link rel="stylesheet" href="assets/css/ui/components/ea.timeline.css">
+<link rel="stylesheet" href="assets/css/ui/components/ea.cards.css">
+<link rel="stylesheet" href="assets/css/ui/components/ea.anim.css">
+<link rel="stylesheet" href="assets/css/ui/components/ea.metrics.css">
+<link rel="stylesheet" href="assets/css/ui/components/ea.accordion.css">
+<link rel="stylesheet" href="assets/css/ui/components/ea.badges.css">
+
+<!-- PAGE CSS -->
+<link rel="stylesheet" href="assets/css/pages/home.css">
+<link rel="stylesheet" href="assets/css/pages/about.css">
+<link rel="stylesheet" href="assets/css/pages/expertises.css">
+<link rel="stylesheet" href="assets/css/pages/launch-lab.css">
+<link rel="stylesheet" href="assets/css/pages/portfolio.css">
+
+============================================================
+📄 FICHIER : ./components/footer.html
+------------------------------------------------------------
+<footer class="ea-footer">
+    <p>© Electronic Artefacts — All rights reserved</p>
+</footer>
+
+
+============================================================
+📄 FICHIER : ./assets/css/ui/layout/ea.layout.css
+------------------------------------------------------------
+/* EA — Unified Layout */
+
+.ea-container {
+    width:min(var(--ea-max-width), 90%);
+    margin:auto;
+    padding:var(--ea-pad) 0;
+}
+
+.ea-section {
+    position: relative;
+    z-index: 10;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:var(--ea-section-vspace) var(--ea-pad);
+    scroll-snap-align:center;
+}
+
+.ea-view {
+    width:100%;
+    height:80vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.ea-stack {
+    display:flex;
+    flex-direction:column;
+    gap:clamp(.8rem, 1vw, 1.6rem);
+}
+
+.ea-dataviz-slot {
+    width:100%;
+    height:180px;
+    background:rgba(255,255,255,.03);
+    border-radius:var(--ea-radius-lg);
+}
+
+
+============================================================
+📄 FICHIER : ./assets/css/ui/components/ea.timeline.css
+------------------------------------------------------------
+.ea-timeline-vertical {
+    display:flex;
+    flex-direction:column;
+    gap:2rem;
+    border-left:1px solid rgba(255,255,255,.12);
+    padding-left:2rem;
+}
+.ea-phase-card {
+    padding:1rem 0;
+}
+
+
+============================================================
+📄 FICHIER : ./assets/css/ui/components/ea.cards.css
+------------------------------------------------------------
+.ea-card {
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.06);
+    padding:2rem;
+    border-radius:var(--ea-radius-lg);
+    box-shadow:var(--ea-shadow-soft);
+}
+.ea-card-profile {
+    text-align:center;
+    padding:3rem;
+    border-radius:var(--ea-radius-lg);
+    background:rgba(255,255,255,.02);
+}
+
+
+============================================================
+📄 FICHIER : ./assets/css/ui/components/ea.anim.css
+------------------------------------------------------------
+.ea-fade-in {
+    animation:eaFadeIn var(--ea-dur-normal) ease forwards;
+    opacity:0;
+}
+@keyframes eaFadeIn {
+    to { opacity:1; }
+}
+
+
+============================================================
+📄 FICHIER : ./assets/css/ui/components/ea.metrics.css
+------------------------------------------------------------
+.ea-metric {
+    font-size:2rem;
+    font-weight:600;
+    color:var(--ea-accent-1);
+}
+.ea-bio-metrics {
+    display:flex;
+    gap:2rem;
+}
+
+
+============================================================
+📄 FICHIER : ./assets/css/ui/components/ea.accordion.css
+------------------------------------------------------------
+.ea-accordion { width:100%; }
+.ea-acc-item {
+    border-bottom:1px solid rgba(255,255,255,.12);
+    padding:1rem 0;
+}
+.ea-acc-title {
+    cursor:pointer;
+    font-weight:600;
+    opacity:.8;
+}
+.ea-acc-content {
+    max-height:0;
+    overflow:hidden;
+    transition:max-height var(--ea-dur-normal) ease;
+}
+.ea-acc-item.open .ea-acc-content {
+    max-height:400px;
+}
+
+
+============================================================
+📄 FICHIER : ./assets/css/ui/components/ea.badges.css
+------------------------------------------------------------
+.ea-badge {
+    display:inline-block;
+    padding:.4rem .8rem;
+    border-radius:var(--ea-radius-md);
+    background:rgba(255,255,255,.08);
+    color:var(--ea-fg-soft);
+    font-size:.85rem;
+    letter-spacing:.5px;
+}
+.ea-keypill {
+    padding:.5rem 1rem;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:2rem;
+    font-size:.8rem;
+    opacity:.8;
+}
+
+
+============================================================
+📄 FICHIER : ./assets/css/core/theme.css
+------------------------------------------------------------
+:root {
+    --ea-max: 1200px;
+    --ea-pad: 2rem;
+}
+
+
+============================================================
+📄 FICHIER : ./assets/css/core/reset.css
+------------------------------------------------------------
+*,
+*::before,
+*::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { font-size:16px; }
+
+body {
+    width:100%; min-height:100vh;
+    font-family:Inter, sans-serif;
+    background:#000; color:#fff;
+}
+
+img { max-width:100%; display:block; }
+ul { list-style:none; }
+a { text-decoration:none; color:inherit; }
+
+
+============================================================
+📄 FICHIER : ./assets/css/core/layout.css
+------------------------------------------------------------
+.ea-container {
+    width:min(var(--ea-max), 90%);
+    margin-inline:auto;
+    padding:var(--ea-pad) 0;
+}
+
+.ea-section {
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:var(--ea-pad);
+}
+
+
+============================================================
+📄 FICHIER : ./assets/css/master/menu.master.css
+------------------------------------------------------------
+.ea-menu {
+    position:fixed;
+    top:1rem;
+    left:0;
+    right:0;
+    display:flex;
+    justify-content:center;
+    z-index:1000;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .45s cubic-bezier(.25,.46,.45,.94);
+}
+
+.ea-menu.visible {
+    opacity:1;
+    pointer-events:auto;
+}
+
+.ea-menu-left {
+    position:absolute;
+    left:2rem;
+    top:50%;
+    transform:translateY(-50%);
+}
+
+.ea-logo {
+    font-size:1.2rem;
+    font-weight:600;
+}
+
+/* BULLE */
+.ea-menu-list {
+    display:flex;
+    gap:1.5rem;
+    backdrop-filter:blur(12px);
+    padding:.8rem 1.4rem;
+    border-radius:2rem;
+    background:rgba(0,0,0,.3);
+    border:1px solid rgba(255,255,255,.12);
+}
+
+/* LIENS — version ultra smooth */
+.ea-menu-link {
+    opacity:.7;
+    font-weight:400;
+    font-size:1rem;
+    transform:scale(1);
+    transition:
+        opacity .25s ease,
+        transform .35s cubic-bezier(.25,.46,.45,.94),
+        text-shadow .35s ease,
+        filter .35s ease;
+    will-change: transform, filter, opacity;
+}
+
+/* ACTIF + HOVER — sans aucun glitch */
+
+/* ------------------------------------------------------- */
+/* RESPONSIVE — Bulle scrollable (3 items visibles max)   */
+/* ------------------------------------------------------- */
+@media (max-width: 720px) {
+    .ea-menu-list {
+        gap: 1rem;
+        padding: .6rem 1rem;
+        border-radius: 1.5rem;
+        overflow-x: auto;
+        max-width: 70vw;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+    }
+    .ea-menu-list::-webkit-scrollbar { display: none; }
+
+    /* Taille du texte réduite mais premium */
+    .ea-menu-link {
+        font-size: .85rem;
+        white-space: nowrap;
+    }
+
+    /* Compression de la bulle */
+    .ea-menu {
+        justify-content: flex-start;
+        padding-left: calc(2rem + 60px); /* compense logo */
+    }
+}
+
+.ea-menu-link:hover,
+.ea-menu-link.active {
+    opacity:1;
+    transform:scale(1.015); /* ultra léger + zéro tremblement */
+    text-shadow:
+        0 0 .35px rgba(255,255,255,.8),
+        0 0 .6px rgba(255,255,255,.25); /* simule un poids légèrement plus fort */
+    filter:brightness(1.05); /* micro highlight */
+}
+
+
+============================================================
+📄 FICHIER : ./assets/css/master/ea.master.css
+------------------------------------------------------------
+.ea-section-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 999999;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: 0.25s ease;
+    pointer-events: auto;
+}
+
+.ea-section-btn.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+============================================================
+📄 FICHIER : ./assets/css/master/sections.master.css
+------------------------------------------------------------
+/* --- SCROLL CONTAINER --- */
+#ea-page-content {
+    height:100vh;
+    overflow-y:auto;
+    scroll-snap-type:y mandatory;
+    scroll-behavior:smooth;
+}
+
+/* --- SECTION MAGNETIQUE --- */
+.ea-section {
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:4rem 1.5rem;
+    scroll-snap-align:center;
+    scroll-snap-stop:always;
+}
+
+/* --- PORTE EA (fenêtre verticale centrée) --- */
+.ea-view {
+    height:80vh;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+/* Container interne */
+.ea-section > .ea-container {
+    width:min(1200px, 90%);
+    height:80vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.ea-section {
+    position: relative;
+}
+
+.ea-section-btn {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: 0.25s ease;
+}
+
+.ea-section-btn:hover {
+    transform: scale(1.12);
+    background: rgba(255,255,255,0.20);
+}
+
+
+============================================================
+📄 FICHIER : ./assets/css/pages/home.css
+------------------------------------------------------------
+/* Styles pour home */
+
+
+============================================================
+📄 FICHIER : ./assets/css/pages/expertises.css
+------------------------------------------------------------
+/* Styles pour expertises */
+
+
+============================================================
+📄 FICHIER : ./assets/css/pages/launch-lab.css
+------------------------------------------------------------
+/* Styles pour launch-lab */
+
+
+============================================================
+📄 FICHIER : ./assets/css/pages/about.css
+------------------------------------------------------------
+/* Styles pour about */
+
+
+============================================================
+📄 FICHIER : ./assets/css/pages/portfolio.css
+------------------------------------------------------------
+/* Styles pour portfolio */
+
+
+============================================================
+📄 FICHIER : ./assets/css/tokens/ea.tokens.css
+------------------------------------------------------------
+:root {
+    /* COLORS */
+    --ea-bg: #000;
+    --ea-fg: #fff;
+    --ea-fg-soft: rgba(255,255,255,.75);
+    --ea-fg-dim: rgba(255,255,255,.45);
+
+    --ea-accent-1: #9df;
+    --ea-accent-2: #4af;
+    --ea-accent-3: #0ef;
+
+    /* TYPOGRAPHY */
+    --ea-font-main: 'Inter', sans-serif;
+    --ea-font-size-sm: .9rem;
+    --ea-font-size-md: 1rem;
+    --ea-font-size-lg: 1.6rem;
+    --ea-font-size-xl: 2.4rem;
+    --ea-font-size-xxl: 4rem;
+
+    /* LAYOUT */
+    --ea-max-width: 1200px;
+    --ea-pad: 2rem;
+    --ea-section-vspace: 6rem;
+
+    /* RADIUS */
+    --ea-radius-sm: 6px;
+    --ea-radius-md: 12px;
+    --ea-radius-lg: 24px;
+
+    /* SHADOWS */
+    --ea-shadow-soft: 0 0 20px rgba(255,255,255,.08);
+
+    /* ANIMATIONS */
+    --ea-dur-fast: .25s;
+    --ea-dur-normal: .45s;
+    --ea-dur-slow: .75s;
+}
+
+
+============================================================
+📄 FICHIER : ./assets/js/core/composer-global.js
+------------------------------------------------------------
+import { getComponentUrl } from "./resolver.js";
+
+export async function injectGlobalComponents() {
+    const slots = {
+        "#ea-head-slot": "head.html",
+        "#ea-body-start-slot": "body-start.html",
+        "#ea-menu-slot": "menu.html",
+        "#ea-footer-slot": "footer.html",
+        "#ea-body-end-slot": "body-end.html"
+    };
+
+    for (const [slot, file] of Object.entries(slots)) {
+        const el = document.querySelector(slot);
+        if (!el) continue;
+        const url = getComponentUrl(file);
+        const res = await fetch(url);
+        el.innerHTML = res.ok ? await res.text() : "";
+    }
+}
+
+
+============================================================
+📄 FICHIER : ./assets/js/core/progress-nav.js
+------------------------------------------------------------
+export function initProgressNav() {
+    const wrapper = document.querySelector("#ea-progress-nav");
+    const content = document.querySelector("#ea-page-content");
+
+    if (!wrapper || !content) return;
+
+    wrapper.innerHTML = "";
+
+    const sections = [...content.querySelectorAll(".ea-section")];
+    const dots = sections.map((_, i) => {
+        const d = document.createElement("div");
+        d.className = "ea-progress-dot";
+        d.dataset.index = i;
+        wrapper.appendChild(d);
+        return d;
+    });
+
+    function updateDots() {
+        const h = window.innerHeight;
+        let active = 0;
+
+        sections.forEach((s, i) => {
+            const rect = s.getBoundingClientRect();
+            if (rect.top <= h * 0.5 && rect.bottom >= h * 0.5) active = i;
+        });
+
+        dots.forEach((d, i) =>
+            d.classList.toggle("active", i === active)
+        );
+    }
+
+    updateDots();
+    content.addEventListener("scroll", updateDots, { passive: true });
+}
+
+
+============================================================
+📄 FICHIER : ./assets/js/core/seo.js
+------------------------------------------------------------
+/**
+ * EA SEO MINIMAL
+ * Met à jour le titre selon pages.json
+ */
+
+import { resolveFromRoot } from "./resolver.js";
+
+async function loadConfig() {
+    const res = await fetch(resolveFromRoot("config/pages.json"));
+    return res.ok ? res.json() : {};
+}
+
+export async function applySeo(page) {
+    const config = await loadConfig();
+    const meta = config[page];
+
+    if (!meta) {
+        document.title = "Electronic Artefacts";
+        return;
+    }
+
+    document.title = `Electronic Artefacts — ${meta.title}`;
+}
+
+window.addEventListener("ea-page-loaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get("page") || "home";
+    applySeo(page);
+});
+
+
+============================================================
+📄 FICHIER : ./assets/js/core/scroll-engine.js
+------------------------------------------------------------
+/**
+ * EA SCROLL ENGINE — magnétisme + menu dynamique
+ */
+export function initScrollEngine() {
+    const container = document.querySelector("#ea-page-content");
+    const menu = document.querySelector(".ea-menu");
+
+    if (!container || !menu) return;
+
+    function updateMenuVisibility() {
+        const y = container.scrollTop;
+        if (y < 50) {
+            menu.classList.remove("visible");
+        } else {
+            menu.classList.add("visible");
+        }
+    }
+
+    updateMenuVisibility();
+    container.addEventListener("scroll", updateMenuVisibility, { passive: true });
+}
+
+window.addEventListener("ea-page-loaded", initScrollEngine);
+
+
+============================================================
+📄 FICHIER : ./assets/js/core/menu.js
+------------------------------------------------------------
+/**
+ * EA MENU — activation du lien courant
+ */
+
+function getCurrentPage() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("page") || "home";
+}
+
+export function activateMenu() {
+    const current = getCurrentPage();
+    const links = document.querySelectorAll(".ea-menu-link");
+
+    links.forEach(link => {
+        const page = link.dataset.page;
+        if (page === current) {
+            link.classList.add("active");
+            link.setAttribute("aria-current", "page");
+        } else {
+            link.classList.remove("active");
+            link.setAttribute("aria-current", "false");
+        }
+    });
+}
+
+window.addEventListener("ea-page-loaded", activateMenu);
+
+
+============================================================
+📄 FICHIER : ./assets/js/core/resolver.js
+------------------------------------------------------------
+export const EA_ROOT = ".";
+
+export function resolveFromRoot(p) {
+    p = p.replace(/^\.\//, "");
+    p = p.replace(/^\/+/, "");
+    return EA_ROOT + "/" + p;
+}
+
+export function getComponentUrl(path) {
+    return resolveFromRoot("components/" + path);
+}
+
+export function getPartialUrl(page, section) {
+    return resolveFromRoot(`pages/${page}/${section}.html`);
+}
+
+
+============================================================
+📄 FICHIER : ./assets/js/core/loader.js
+------------------------------------------------------------
+import { initProgressNav } from "./progress-nav.js";
+import { injectGlobalComponents } from "./composer-global.js";
+import { composePage } from "../composer/composer.js";
+import { activateMenu } from "./menu.js";
+import { initScrollEngine } from "./scroll-engine.js";
+import { applySeo } from "./seo.js";
+
+function resolvePage() {
+    return new URLSearchParams(window.location.search).get("page") || "home";
+}
+
+async function load() {
+    const page = resolvePage();
+    await injectGlobalComponents();
+    await composePage(page);
+
+    initProgressNav();
+    activateMenu();
+    initScrollEngine();
+    applySeo(page);
+
+    window.dispatchEvent(new Event("ea-page-loaded"));
+}
+
+window.addEventListener("DOMContentLoaded", load);
+window.addEventListener("popstate", load);
+
+
+============================================================
+📄 FICHIER : ./assets/js/composer/composer.js
+------------------------------------------------------------
+import { resolveFromRoot, getPartialUrl } from "../core/resolver.js";
+import { initProgressNav } from "../core/progress-nav.js";
+
+async function loadPagesConfig() {
+    const res = await fetch(resolveFromRoot("config/pages.json"));
+    return res.ok ? res.json() : {};
+}
+
+async function loadSection(page, section) {
+    const url = getPartialUrl(page, section);
+    const res = await fetch(url);
+    return res.ok ? res.text() : `<section class='ea-section ea-missing'><h2>Missing: ${section}</h2></section>`;
+}
+
+export async function composePage(page) {
+    const container = document.querySelector("#ea-page-content");
+    container.innerHTML = "<div class='ea-loading'>Chargement…</div>";
+
+    const config = await loadPagesConfig();
+    const meta = config[page];
+
+    if (!meta) {
+        container.innerHTML = "<section class='ea-section'><h2>Page inconnue</h2></section>";
+        return;
+    }
+
+    let html = "";
+    for (const s of meta.sections) html += await loadSection(page, s);
+    container.innerHTML = html;
+
+    // === Inject little arrows on each section preview (scoped to container only) ===
+    const sections = container.querySelectorAll(".ea-section");
+
+    sections.forEach(section => {
+
+        // Resolve section ID robustly
+        let sectionId =
+            section.dataset.section ||
+            section.getAttribute("data-section") ||
+            section.id ||
+            "unknown";
+
+        console.log("[EA] Section ID resolved:", sectionId);
+
+        // Avoid duplicates
+        if (section.querySelector(".ea-section-btn")) return;
+
+        const btn = document.createElement("button");
+        btn.className = "ea-section-btn";
+        btn.textContent = "↘";
+        btn.style.zIndex = "2000"; // ensure visibility above container & blobs
+
+        btn.addEventListener("click", () => {
+            const url = new URL(window.location.href);
+            url.searchParams.set("section", sectionId);
+            window.location.href = url.toString();
+        });
+
+        section.appendChild(btn);
+    });
+
+    // === PREVIEW / DETAIL TOGGLE (scoped correctly) ===
+    const params = new URLSearchParams(location.search);
+    const currentSection = params.get("section");
+
+    sections.forEach(section => {
+        const id = section.dataset.section;
+        const preview = section.querySelector(".ea-preview");
+        const detail = section.querySelector(".ea-detail");
+
+        if (!preview || !detail) return;
+
+        if (id === currentSection) {
+            preview.style.display = "none";
+            detail.style.display = "block";
+        } else {
+            preview.style.display = "block";
+            detail.style.display = "none";
+        }
+    });
+
+    initProgressNav();
+    window.dispatchEvent(new Event("ea-page-loaded"));
+}
+
+
+============================================================
+📄 FICHIER : ./pages/home/hero.html
+------------------------------------------------------------
+<section class="ea-section" data-section="hero">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h1>Electronic Artefacts</h1>
+<p>Studio créatif & technologique. Des systèmes sur mesure, dessinés au code et à la main.</p>
+<p>Fractales, data, design : une seule et même matière.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/home/index.html
+------------------------------------------------------------
+<section class="ea-section" data-section="index">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview">        <h2>Section</h2>
+        <p>Contenu à venir…</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/home/intro.html
+------------------------------------------------------------
+<section class="ea-section" data-section="intro">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h2>Un studio d’infrastructures web, pas une « simple agence »</h2>
+<p>Electronic Artefacts accompagne les marques et créateurs qui ont besoin de plus qu’un beau site : des fondations solides, des outils internes et une direction artistique exigeante.</p>
+<p>Ce que l’on fait : infrastructures & outils internes — sites premium — direction artistique & langage de marque.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/launch-lab/index.html
+------------------------------------------------------------
+<section class="ea-section" data-section="index">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview">        <h2>Section</h2>
+        <p>Contenu à venir…</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/launch-lab/pricing.html
+------------------------------------------------------------
+<section class="ea-section" data-section="pricing">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h2>Une logique d’investissement</h2>
+<p>Tarification construite selon la complexité du projet : Sprint Design, Socle Web, Systèmes & Outils. Détails à venir en fin de bêta.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/launch-lab/program.html
+------------------------------------------------------------
+<section class="ea-section" data-section="program">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h2>Launch Lab — Programme bêta</h2>
+<p>Programme expérimental d’EA pour co-concevoir des infrastructures web avec un vrai dialogue. Audit, architecture, DA, socle technique, suivi.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/launch-lab/roadmap.html
+------------------------------------------------------------
+<section class="ea-section" data-section="roadmap">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h2>Roadmap du Launch Lab</h2>
+<p><strong>Phase 1</strong> : Projets pilotes.<br>
+<strong>Phase 2</strong> : Structuration et automatisations.<br>
+<strong>Phase 3</strong> : Ouverture publique.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/launch-lab/faq.html
+------------------------------------------------------------
+<section class="ea-section" data-section="faq">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h2>Questions fréquentes</h2>
+<p><strong>Est-ce réservé aux grosses structures ?</strong> Non.<br>
+<strong>Tout est-il codé from scratch ?</strong> Pas forcément.<br>
+<strong>Durée d’un projet ?</strong> Variable, logique sprint.<br>
+<strong>Accompagnement long terme ?</strong> Oui.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/about/skills.html
+------------------------------------------------------------
+<section class="ea-section" data-section="skills">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h2>Compétences & terrains de jeu</h2>
+<p><strong>Engineering</strong> : JS/TS, PHP, Python, Rust, APIs, SQL, Docker, micro-services.<br>
+<strong>CMS & e-commerce</strong> : WordPress, plugins custom, Shopify Liquid.<br>
+<strong>Direction artistique</strong> : identités, webdesign premium, code-art.<br>
+<strong>Stratégie</strong> : UX, SEO, structuration back-end et outils internes.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/about/index.html
+------------------------------------------------------------
+<section class="ea-section" data-section="index">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview">        <h2>Section</h2>
+        <p>Contenu à venir…</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/about/bio.html
+------------------------------------------------------------
+<section class="ea-section" data-section="bio">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h2>À l’origine d’Electronic Artefacts</h2>
+<p>Electronic Artefacts est fondé par un créateur hybride mêlant direction artistique, conception système et développement. L’objectif : comprendre les mécanismes, puis créer des architectures élégantes et pérennes.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/about/vision.html
+------------------------------------------------------------
+<section class="ea-section" data-section="vision">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h2>Une vision fractale</h2>
+<p>EA est pensé comme une holding créative et technologique, capable d’unifier R&D logicielle, studio créatif et édition d’artefacts numériques. Chaque projet client est une brique du système global.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/expertises/index.html
+------------------------------------------------------------
+<section class="ea-section" data-section="index">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview">        <h2>Section</h2>
+        <p>Contenu à venir…</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/expertises/systems-engineering.html
+------------------------------------------------------------
+<section class="ea-section" data-section="systems-engineering">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h2>Systems engineering & moteurs internes</h2>
+<p>Outils internes, APIs, ERP, dashboards, pipelines de données, moteurs métier. Robustesse, modularité, documentation propre.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/expertises/conseils.html
+------------------------------------------------------------
+<section class="ea-section" data-section="conseils">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h2>Conseil & accompagnement</h2>
+<p>Audit, cadrage, choix technos, architecture d’information, stratégie long terme. Processus : audit → conception → prototype → production.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/expertises/web-premium.html
+------------------------------------------------------------
+<section class="ea-section" data-section="web-premium">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h2>Sites & expériences web premium</h2>
+<p>Sites vitrines, plateformes avancées, e-commerce sur mesure. Performances, direction artistique et code-art plutôt que visuels lourds.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/expertises/direction-artistique.html
+------------------------------------------------------------
+<section class="ea-section" data-section="direction-artistique">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h2>Direction artistique & langage de marque</h2>
+<p>Identité visuelle, univers, webdesign premium, systèmes graphiques. Minimalisme, précision typographique, micro-interactions élégantes.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/portfolio/project-002.html
+------------------------------------------------------------
+<section class="ea-section" data-section="project-002">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h2>Projet #02 — Plateforme d’hébergements</h2>
+<p>Architecture WordPress custom + plugin propriétaire. Design immersif, gestion fine des rôles, volumétrie importante.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/portfolio/index.html
+------------------------------------------------------------
+<section class="ea-section" data-section="index">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h2>Projets & expérimentations</h2>
+<p>Sélection d’interfaces, plateformes, outils internes et projets artistiques réalisés par Electronic Artefacts.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/portfolio/project-003.html
+------------------------------------------------------------
+<section class="ea-section" data-section="project-003">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h2>Projet #03 — Code-art & expériences visuelles</h2>
+<p>Expérimentations mêlant photographie, interfaces web et effets génératifs. Narration sci-fi, micro-interactions, motion léger.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
+
+============================================================
+📄 FICHIER : ./pages/portfolio/project-001.html
+------------------------------------------------------------
+<section class="ea-section" data-section="project-001">
+    <div class="ea-container ea-view">
+    <div class="ea-container ea-view">
+<div class="ea-preview"><h2>Projet #01 — EA.Gov</h2>
+<p>ERP interne modulaire : gestion de projets, budgets, workflows, micro-services, API, interface efficace et sobre.</p>
+    </div>
+</div>
+        <div class="ea-detail">
+            <!-- Détail complet à rédiger -->
+        </div>
+</section>
