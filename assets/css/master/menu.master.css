@@ -9,6 +9,11 @@
     opacity:0;
     pointer-events:none;
     transition:opacity .45s cubic-bezier(.25,.46,.45,.94);
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    contain: paint;      /* Évite le double-pass du blur */
+    isolation: isolate;  /* Empêche les layers de se mélanger */
 }
 
 .ea-menu.visible {
@@ -42,15 +47,17 @@
 /* LIENS — version ultra smooth */
 .ea-menu-link {
     opacity:.7;
-    font-weight:400;
+    font-weight:200;
     font-size:1rem;
-    transform:scale(1);
+    transform:translateZ(0);
     transition:
         opacity .25s ease,
-        transform .35s cubic-bezier(.25,.46,.45,.94),
+        font-weight .22s ease,
+        font-size .18s ease,
+        transform .18s ease,
         text-shadow .35s ease,
         filter .35s ease;
-    will-change: transform, filter, opacity;
+    will-change: font-weight, font-size, transform, filter, opacity;
 }
 
 /* ACTIF + HOVER — sans aucun glitch */
@@ -86,9 +93,61 @@
 .ea-menu-link:hover,
 .ea-menu-link.active {
     opacity:1;
-    transform:scale(1.015); /* ultra léger + zéro tremblement */
+    font-weight:400;
+    font-size:1.04rem;
+    transform:scale(1.06); /* premium hover */
     text-shadow:
         0 0 .35px rgba(255,255,255,.8),
         0 0 .6px rgba(255,255,255,.25); /* simule un poids légèrement plus fort */
     filter:brightness(1.05); /* micro highlight */
+}
+
+/* ========================================================= */
+/* EA MENU — REFACTOR PHASE 3.5 (safe, non-breaking)         */
+/* ========================================================= */
+
+/* 1 — Stabilisation anti-glitch */
+.ea-menu-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    font-weight: 200;
+    transform: translateZ(0);
+    transition:
+        font-weight .22s ease,
+        font-size .18s ease,
+        transform .18s ease;
+    will-change: font-weight, font-size, transform;
+}
+
+/* 2 — Hover Desktop */
+@media (hover:hover) and (pointer:fine) {
+    .ea-menu-link:hover {
+        font-weight: 400;
+        font-size: 1.04rem;
+        transform: scale(1.06);
+    }
+    .ea-menu-link.active {
+        font-weight: 400;
+        font-size: 1.04rem;
+        transform: scale(1.06);
+    }
+}
+
+/* 3 — Mobile press (sans JS) */
+@media (hover:none) and (pointer:coarse) {
+    .ea-menu-link.ea-pressed {
+        font-weight: 400;
+        font-size: 1.04rem;
+        transform: scale(1.06);
+    }
+}
+
+/* 4 — Fix du glitch de la bulle du menu */
+.ea-menu {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
 }

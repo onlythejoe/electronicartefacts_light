@@ -18,7 +18,8 @@ export const CLASSES = {
     contentDetail: "ea-content--detail",
     progressDot: "ea-progress-dot",
     progressDotActive: "active",
-    menuVisible: "visible"
+    menuVisible: "visible",
+    menuPressed: "ea-pressed"
 };
 
 export const EVENTS = {
