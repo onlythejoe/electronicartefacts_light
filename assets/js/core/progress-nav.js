@@ -18,6 +18,7 @@ export function initProgressNav() {
     if (!wrapper || !content) return;
 
     const sections = [...content.querySelectorAll(SELECTORS.section)];
+    if (sections.length === 0) return;
     const dots = sections.map((_, i) => {
         const d = document.createElement("div");
         d.className = CLASSES.progressDot;

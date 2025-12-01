@@ -4,6 +4,7 @@
 import { SELECTORS, CLASSES, EVENTS } from "./constants.js";
 
 let teardown = null;
+const MENU_THRESHOLD = 50;
 
 export function initScrollEngine() {
     if (typeof teardown === "function") teardown();
@@ -16,7 +17,7 @@ export function initScrollEngine() {
 
     function updateMenuVisibility() {
         const y = container.scrollTop;
-        if (y < 50) {
+        if (y < MENU_THRESHOLD) {
             menu.classList.remove(CLASSES.menuVisible);
         } else {
             menu.classList.add(CLASSES.menuVisible);

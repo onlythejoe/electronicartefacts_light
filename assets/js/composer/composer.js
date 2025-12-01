@@ -15,59 +15,64 @@ function updateUrl(page, sectionId) {
     history.pushState({}, "", url);
 }
 
-function applySectionState(container, targetSectionId = null) {
-    const sections = [...container.querySelectorAll(SELECTORS.section)];
-    const hasTarget = targetSectionId && sections.some((s) => s.dataset.section === targetSectionId);
-    const inDetail = Boolean(targetSectionId && hasTarget);
-
-    sections.forEach((section) => {
-        const id = section.dataset.section;
-        const isTarget = inDetail && id === targetSectionId;
-        const preview = section.querySelector(SELECTORS.preview);
-        const detail = section.querySelector(SELECTORS.detail);
-
-        const shouldOpen = !inDetail || isTarget;
-        section.classList.toggle(CLASSES.sectionOpen, shouldOpen);
-        section.classList.toggle(CLASSES.sectionHidden, inDetail && !isTarget);
-
-        if (preview) preview.hidden = inDetail && isTarget;
-        if (detail) detail.hidden = !(inDetail && isTarget);
-    });
-
-    document.body.classList.toggle(CLASSES.modeDetail, inDetail);
+// TODO Phase 4: add transition manager for section open/close.
+function createSectionController(container, page) {
     const scrollContainer = document.querySelector(SELECTORS.pageContent);
-    scrollContainer?.classList.toggle(CLASSES.contentDetail, inDetail);
+    const sections = [...container.querySelectorAll(SELECTORS.section)].map((section) => ({
+        node: section,
+        id: section.dataset.section,
+        preview: section.querySelector(SELECTORS.preview),
+        detail: section.querySelector(SELECTORS.detail)
+    }));
 
-    if (inDetail) {
-        const target = sections.find((s) => s.dataset.section === targetSectionId);
-        target?.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else if (scrollContainer) {
-        scrollContainer.scrollTop = 0;
-    }
-}
+    const applySectionState = (targetSectionId = null) => {
+        const hasTarget = targetSectionId && sections.some((s) => s.id === targetSectionId);
+        const inDetail = Boolean(targetSectionId && hasTarget);
 
-function attachSectionTriggers(container, page) {
+        sections.forEach(({ node, id, preview, detail }) => {
+            const isTarget = inDetail && id === targetSectionId;
+            const shouldOpen = !inDetail || isTarget;
+
+            node.classList.toggle(CLASSES.sectionOpen, shouldOpen);
+            node.classList.toggle(CLASSES.sectionHidden, inDetail && !isTarget);
+
+            if (preview) preview.hidden = inDetail && isTarget;
+            if (detail) detail.hidden = !(inDetail && isTarget);
+        });
+
+        document.body.classList.toggle(CLASSES.modeDetail, inDetail);
+        scrollContainer?.classList.toggle(CLASSES.contentDetail, inDetail);
+
+        if (inDetail) {
+            const target = sections.find((s) => s.id === targetSectionId);
+            target?.node.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else if (scrollContainer) {
+            scrollContainer.scrollTop = 0;
+        }
+    };
+
+    const resolveTarget = (btn) => btn.dataset.sectionTarget || btn.closest(SELECTORS.section)?.dataset.section;
+
     const handleOpen = (target) => {
         if (!target) return;
         updateUrl(page, target);
-        applySectionState(container, target);
+        applySectionState(target);
     };
 
     const handleBack = () => {
         updateUrl(page, null);
-        applySectionState(container, null);
+        applySectionState(null);
     };
 
     container.querySelectorAll(SELECTORS.openTrigger).forEach((btn) => {
-        btn.addEventListener("click", () => {
-            const target = btn.dataset.sectionTarget || btn.closest(SELECTORS.section)?.dataset.section;
-            handleOpen(target);
-        });
+        btn.addEventListener("click", () => handleOpen(resolveTarget(btn)));
     });
 
     container.querySelectorAll(SELECTORS.backTrigger).forEach((btn) => {
         btn.addEventListener("click", handleBack);
     });
+
+    return { applySectionState };
 }
 
 async function loadSection(page, section) {
@@ -92,8 +97,8 @@ export async function composePage(page, detailSection = null) {
     for (const s of meta.sections) html += await loadSection(page, s);
     container.innerHTML = html;
 
-    attachSectionTriggers(container, page);
-    applySectionState(container, detailSection);
+    const controller = createSectionController(container, page);
+    controller.applySectionState(detailSection);
 
     // Page composition complete; caller is responsible for dispatching lifecycle events.
 }

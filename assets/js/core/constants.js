@@ -3,6 +3,7 @@ export const SELECTORS = {
     pageContent: "#ea-page-content",
     progressNav: "#ea-progress-nav",
     menu: ".ea-menu",
+    menuLink: ".ea-menu-link",
     section: ".ea-section",
     preview: ".ea-preview",
     detail: ".ea-detail",

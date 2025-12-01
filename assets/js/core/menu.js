@@ -2,7 +2,7 @@
  * EA MENU — activation du lien courant
  */
 
-import { EVENTS } from "./constants.js";
+import { EVENTS, SELECTORS } from "./constants.js";
 
 function getCurrentPage() {
     const params = new URLSearchParams(window.location.search);
@@ -11,7 +11,7 @@ function getCurrentPage() {
 
 export function activateMenu() {
     const current = getCurrentPage();
-    const links = document.querySelectorAll(".ea-menu-link");
+    const links = document.querySelectorAll(SELECTORS.menuLink);
 
     links.forEach(link => {
         const page = link.dataset.page;
