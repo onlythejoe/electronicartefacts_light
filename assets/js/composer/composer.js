@@ -1,4 +1,6 @@
-import { resolveFromRoot, getPartialUrl } from "../core/resolver.js";
+import { getPartialUrl } from "../core/resolver.js";
+import { loadPagesConfig } from "../core/config-cache.js";
+import { SELECTORS, CLASSES } from "../core/constants.js";
 
 function updateUrl(page, sectionId) {
     const url = new URL(window.location.href);
@@ -14,27 +16,27 @@ function updateUrl(page, sectionId) {
 }
 
 function applySectionState(container, targetSectionId = null) {
-    const sections = [...container.querySelectorAll(".ea-section")];
+    const sections = [...container.querySelectorAll(SELECTORS.section)];
     const hasTarget = targetSectionId && sections.some((s) => s.dataset.section === targetSectionId);
     const inDetail = Boolean(targetSectionId && hasTarget);
 
     sections.forEach((section) => {
         const id = section.dataset.section;
         const isTarget = inDetail && id === targetSectionId;
-        const preview = section.querySelector(".ea-preview");
-        const detail = section.querySelector(".ea-detail");
+        const preview = section.querySelector(SELECTORS.preview);
+        const detail = section.querySelector(SELECTORS.detail);
 
         const shouldOpen = !inDetail || isTarget;
-        section.classList.toggle("ea-section--open", shouldOpen);
-        section.classList.toggle("ea-section--hidden", inDetail && !isTarget);
+        section.classList.toggle(CLASSES.sectionOpen, shouldOpen);
+        section.classList.toggle(CLASSES.sectionHidden, inDetail && !isTarget);
 
         if (preview) preview.hidden = inDetail && isTarget;
         if (detail) detail.hidden = !(inDetail && isTarget);
     });
 
-    document.body.classList.toggle("ea-mode-detail", inDetail);
-    const scrollContainer = document.querySelector("#ea-page-content");
-    scrollContainer?.classList.toggle("ea-content--detail", inDetail);
+    document.body.classList.toggle(CLASSES.modeDetail, inDetail);
+    const scrollContainer = document.querySelector(SELECTORS.pageContent);
+    scrollContainer?.classList.toggle(CLASSES.contentDetail, inDetail);
 
     if (inDetail) {
         const target = sections.find((s) => s.dataset.section === targetSectionId);
@@ -45,26 +47,27 @@ function applySectionState(container, targetSectionId = null) {
 }
 
 function attachSectionTriggers(container, page) {
-    container.querySelectorAll("[data-section-trigger='open']").forEach((btn) => {
+    const handleOpen = (target) => {
+        if (!target) return;
+        updateUrl(page, target);
+        applySectionState(container, target);
+    };
+
+    const handleBack = () => {
+        updateUrl(page, null);
+        applySectionState(container, null);
+    };
+
+    container.querySelectorAll(SELECTORS.openTrigger).forEach((btn) => {
         btn.addEventListener("click", () => {
-            const target = btn.dataset.sectionTarget || btn.closest(".ea-section")?.dataset.section;
-            if (!target) return;
-            updateUrl(page, target);
-            applySectionState(container, target);
+            const target = btn.dataset.sectionTarget || btn.closest(SELECTORS.section)?.dataset.section;
+            handleOpen(target);
         });
     });
 
-    container.querySelectorAll("[data-section-trigger='back']").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            updateUrl(page, null);
-            applySectionState(container, null);
-        });
+    container.querySelectorAll(SELECTORS.backTrigger).forEach((btn) => {
+        btn.addEventListener("click", handleBack);
     });
-}
-
-async function loadPagesConfig() {
-    const res = await fetch(resolveFromRoot("config/pages.json"));
-    return res.ok ? res.json() : {};
 }
 
 async function loadSection(page, section) {
@@ -74,7 +77,7 @@ async function loadSection(page, section) {
 }
 
 export async function composePage(page, detailSection = null) {
-    const container = document.querySelector("#ea-page-content");
+    const container = document.querySelector(SELECTORS.pageContent);
     container.innerHTML = "<div class='ea-loading'>Chargement…</div>";
 
     const config = await loadPagesConfig();
@@ -92,5 +95,5 @@ export async function composePage(page, detailSection = null) {
     attachSectionTriggers(container, page);
     applySectionState(container, detailSection);
 
-    window.dispatchEvent(new Event("ea-page-loaded"));
+    // Page composition complete; caller is responsible for dispatching lifecycle events.
 }

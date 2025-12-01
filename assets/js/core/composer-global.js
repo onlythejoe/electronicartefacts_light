@@ -13,7 +13,11 @@ export async function injectGlobalComponents() {
         const el = document.querySelector(slot);
         if (!el) continue;
         const url = getComponentUrl(file);
-        const res = await fetch(url);
-        el.innerHTML = res.ok ? await res.text() : "";
+        try {
+            const res = await fetch(url);
+            el.innerHTML = res.ok ? await res.text() : "";
+        } catch {
+            el.innerHTML = "";
+        }
     }
 }

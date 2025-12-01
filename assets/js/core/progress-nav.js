@@ -1,15 +1,26 @@
+import { SELECTORS, CLASSES, EVENTS } from "./constants.js";
+
+let teardown = null;
+
+function reset() {
+    if (typeof teardown === "function") teardown();
+    teardown = null;
+    const wrapper = document.querySelector(SELECTORS.progressNav);
+    if (wrapper) wrapper.innerHTML = "";
+}
+
 export function initProgressNav() {
-    const wrapper = document.querySelector("#ea-progress-nav");
-    const content = document.querySelector("#ea-page-content");
+    reset();
+
+    const wrapper = document.querySelector(SELECTORS.progressNav);
+    const content = document.querySelector(SELECTORS.pageContent);
 
     if (!wrapper || !content) return;
 
-    wrapper.innerHTML = "";
-
-    const sections = [...content.querySelectorAll(".ea-section")];
+    const sections = [...content.querySelectorAll(SELECTORS.section)];
     const dots = sections.map((_, i) => {
         const d = document.createElement("div");
-        d.className = "ea-progress-dot";
+        d.className = CLASSES.progressDot;
         d.dataset.index = i;
         wrapper.appendChild(d);
         return d;
@@ -25,10 +36,13 @@ export function initProgressNav() {
         });
 
         dots.forEach((d, i) =>
-            d.classList.toggle("active", i === active)
+            d.classList.toggle(CLASSES.progressDotActive, i === active)
         );
     }
 
     updateDots();
     content.addEventListener("scroll", updateDots, { passive: true });
+    teardown = () => content.removeEventListener("scroll", updateDots);
 }
+
+window.addEventListener(EVENTS.pageLoaded, initProgressNav);

@@ -1,9 +1,10 @@
-import { initProgressNav } from "./progress-nav.js";
 import { injectGlobalComponents } from "./composer-global.js";
 import { composePage } from "../composer/composer.js";
-import { activateMenu } from "./menu.js";
-import { initScrollEngine } from "./scroll-engine.js";
-import { applySeo } from "./seo.js";
+import { EVENTS } from "./constants.js";
+import "./progress-nav.js";
+import "./scroll-engine.js";
+import "./menu.js";
+import "./seo.js";
 
 function resolvePage() {
     return new URLSearchParams(window.location.search).get("page") || "home";
@@ -18,13 +19,7 @@ async function load() {
     const detailSection = resolveSection();
     await injectGlobalComponents();
     await composePage(page, detailSection);
-
-    initProgressNav();
-    activateMenu();
-    initScrollEngine();
-    applySeo(page);
-
-    window.dispatchEvent(new Event("ea-page-loaded"));
+    window.dispatchEvent(new Event(EVENTS.pageLoaded));
 }
 
 window.addEventListener("DOMContentLoaded", load);

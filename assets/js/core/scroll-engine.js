@@ -1,23 +1,31 @@
 /**
  * EA SCROLL ENGINE — magnétisme + menu dynamique
  */
+import { SELECTORS, CLASSES, EVENTS } from "./constants.js";
+
+let teardown = null;
+
 export function initScrollEngine() {
-    const container = document.querySelector("#ea-page-content");
-    const menu = document.querySelector(".ea-menu");
+    if (typeof teardown === "function") teardown();
+    teardown = null;
+
+    const container = document.querySelector(SELECTORS.pageContent);
+    const menu = document.querySelector(SELECTORS.menu);
 
     if (!container || !menu) return;
 
     function updateMenuVisibility() {
         const y = container.scrollTop;
         if (y < 50) {
-            menu.classList.remove("visible");
+            menu.classList.remove(CLASSES.menuVisible);
         } else {
-            menu.classList.add("visible");
+            menu.classList.add(CLASSES.menuVisible);
         }
     }
 
     updateMenuVisibility();
     container.addEventListener("scroll", updateMenuVisibility, { passive: true });
+    teardown = () => container.removeEventListener("scroll", updateMenuVisibility);
 }
 
-window.addEventListener("ea-page-loaded", initScrollEngine);
+window.addEventListener(EVENTS.pageLoaded, initScrollEngine);

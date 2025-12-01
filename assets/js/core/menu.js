@@ -2,6 +2,8 @@
  * EA MENU — activation du lien courant
  */
 
+import { EVENTS } from "./constants.js";
+
 function getCurrentPage() {
     const params = new URLSearchParams(window.location.search);
     return params.get("page") || "home";
@@ -23,4 +25,4 @@ export function activateMenu() {
     });
 }
 
-window.addEventListener("ea-page-loaded", activateMenu);
+window.addEventListener(EVENTS.pageLoaded, activateMenu);
